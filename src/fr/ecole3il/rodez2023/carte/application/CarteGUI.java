@@ -1,5 +1,7 @@
 package fr.ecole3il.rodez2023.carte.application;
 
+import javax.swing.*;
+
 /**
  * @author p.roquart
  * voilà
