@@ -1,11 +1,12 @@
-package fr.ecole3il.rodez2023.carte.path;
+package fr.ecole3il.rodez2023.carte.path.algo;
 
-import fr.ecole3il.rodez2023.carte.chemin.elements.Graphe;
-import fr.ecole3il.rodez2023.carte.chemin.elements.Noeud;
+import fr.ecole3il.rodez2023.carte.path.acces.Graphe;
+import fr.ecole3il.rodez2023.carte.path.acces.Noeud;
+
 
 import java.util.*;
 
-public class AlgorithmeDijkstra<E> implements fr.ecole3il.rodez2023.carte.path.AlgorithmeChemin<E> {
+public class AlgorithmeDijkstra<E> implements fr.ecole3il.rodez2023.carte.path.algo.AlgorithmeChemin<E> {
     @Override
     public List<Noeud<E>> trouverChemin(Graphe<E> graphe, Noeud<E> depart, Noeud<E> arrivee) {
         Map<Noeud<E>, Noeud<E>> predecessors = new HashMap<>();
