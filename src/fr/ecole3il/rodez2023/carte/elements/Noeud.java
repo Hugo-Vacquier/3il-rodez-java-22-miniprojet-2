@@ -1,29 +1,25 @@
 package fr.ecole3il.rodez2023.carte.elements;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Noeud<E> {
-    private E valeur; // La valeur du nœud
-    private List<Noeud<E>> voisins; // La liste des nœuds voisins
+    private E valeur;
+    private Set<Noeud<E>> voisins; // Changement de List à Set pour garantir l'unicité
 
-    // Constructeur qui initialise le nœud avec une valeur et une liste de voisins vide
     public Noeud(E valeur) {
         this.valeur = valeur;
-        this.voisins = new ArrayList<>();
+        this.voisins = new HashSet<>();
     }
 
-    // Méthode pour obtenir la valeur du nœud
     public E getValeur() {
         return valeur;
     }
 
-    // Méthode pour obtenir la liste des nœuds voisins
-    public List<Noeud<E>> getVoisins() {
+    public Set<Noeud<E>> getVoisins() { // Changement du type de retour
         return voisins;
     }
 
-    // Méthode pour ajouter un voisin à la liste des voisins
     public void ajouterVoisin(Noeud<E> voisin) {
         this.voisins.add(voisin);
     }
