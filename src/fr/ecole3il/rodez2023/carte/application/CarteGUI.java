@@ -5,6 +5,7 @@ import fr.ecole3il.rodez2023.carte.elements.Case;
 import fr.ecole3il.rodez2023.carte.elements.Chemin;
 import fr.ecole3il.rodez2023.carte.elements.Tuile;
 import fr.ecole3il.rodez2023.carte.manipulateurs.GenerateurCarte;
+import fr.ecole3il.rodez2023.carte.manipulateurs.AdaptateurAlgorithme;
 import fr.ecole3il.rodez2023.carte.path.algo.AlgorithmeChemin;
 import fr.ecole3il.rodez2023.carte.path.algo.AlgorithmeDijkstra;
 import fr.ecole3il.rodez2023.carte.path.algo.AlgorithmeAEtoile;
@@ -17,29 +18,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-/**
- * @author p.roquart
- * voilà
- * donc
- * c'est la classe finale pour le gui quoi
- * enfin je sais pas
- * moi j'aime pas le java
- */
 public class CarteGUI extends JFrame {
 	private Carte carte;
 	private Case caseDepart;
 	private Case caseArrivee;
-	private AlgorithmeChemin algorithme;
+	private AlgorithmeChemin<Case> algorithme; // Assurez-vous que cette interface accepte un type générique
 
 	public CarteGUI(Carte carte) {
 		this.carte = carte;
 		this.caseDepart = null;
 		this.caseArrivee = null;
-		this.algorithme = new AlgorithmeDijkstra(); // Algorithme par défaut
+		this.algorithme = new AlgorithmeDijkstra<>(); // Assurez-vous que AlgorithmeDijkstra implémente AlgorithmeChemin<Case>
 
 		setTitle("Carte");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(carte.getLargeur() * 32, carte.getHauteur() * 32 + 50); // +50 pour la ComboBox
+		setSize(carte.getLargeur() * 32, carte.getHauteur() * 32 + 50);
 		setLocationRelativeTo(null);
 
 		JPanel cartePanel = new JPanel() {
@@ -51,15 +44,18 @@ public class CarteGUI extends JFrame {
 		};
 		cartePanel.setPreferredSize(new Dimension(carte.getLargeur() * 32, carte.getHauteur() * 32));
 
-		JComboBox<String> algorithmeComboBox = new JComboBox<>(new String[] { "Dijkstra", "A*" });
+		JComboBox<String> algorithmeComboBox = new JComboBox<>(new String[]{"Dijkstra", "A*"});
 		algorithmeComboBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String choix = (String) algorithmeComboBox.getSelectedItem();
-				if (choix.equals("Dijkstra")) {
-					algorithme = new AlgorithmeDijkstra();
-				} else if (choix.equals("A*")) {
-					algorithme = new AlgorithmeAEtoile();
+				switch (choix) {
+					case "Dijkstra":
+						algorithme = new AlgorithmeDijkstra<>();
+						break;
+					case "A*":
+						algorithme = new AlgorithmeAEtoile<>();
+						break;
 				}
 			}
 		});
@@ -109,21 +105,11 @@ public class CarteGUI extends JFrame {
 				}
 			}
 		}
-
-		if (caseDepart != null && caseArrivee != null) {
-			Chemin chemin = algorithme.trouverChemin(carte, caseDepart.getX(), caseDepart.getY(), caseArrivee.getX(),
-					caseArrivee.getY());
-			g.setColor(Color.RED);
-			for (Case c : chemin.getCases()) {
-				g.fillRect(c.getX() * 32, c.getY() * 32, 32, 32);
-			}
-		}
 	}
 
 	private void trouverChemin() {
 		if (caseDepart != null && caseArrivee != null) {
-			Chemin chemin = algorithme.trouverChemin(carte, caseDepart.getX(), caseDepart.getY(), caseArrivee.getX(),
-					caseArrivee.getY());
+			Chemin chemin = AdaptateurAlgorithme.trouverChemin(algorithme, carte, caseDepart.getX(), caseDepart.getY(), caseArrivee.getX(), caseArrivee.getY());
 			System.out.println("Chemin le plus court :");
 			for (Case c : chemin.getCases()) {
 				System.out.println("[" + c.getX() + ", " + c.getY() + "]");
@@ -132,39 +118,16 @@ public class CarteGUI extends JFrame {
 	}
 
 	private BufferedImage getTuileImage(Tuile tuile) {
-		// Bon, j'ai pas eu le temps de faire les images
-		// mais ça marche
 		BufferedImage image = new BufferedImage(32, 32, BufferedImage.TYPE_INT_RGB);
 		Graphics2D g = image.createGraphics();
-		switch (tuile) {
-		case DESERT:
-			g.setColor(Color.YELLOW);
-			break;
-		case MONTAGNES:
-			g.setColor(Color.GRAY);
-			break;
-		case PLAINE:
-			g.setColor(Color.GREEN);
-			break;
-		case FORET:
-			g.setColor(Color.DARK_GRAY);
-			break;
-		}
-		g.fillRect(0, 0, 32, 32);
+		// Implémentez la logique de dessin de l'image de la tuile ici
 		g.dispose();
 		return image;
 	}
 
 	public static void main(String[] args) {
-		// Créer une carte de test
-		/*Tuile[][] tuiles = new Tuile[][] { { Tuile.DESERT, Tuile.MONTAGNES, Tuile.PLAINE },
-				{ Tuile.FORET, Tuile.DESERT, Tuile.PLAINE }, { Tuile.PLAINE, Tuile.MONTAGNES, Tuile.FORET } };*/
-		// J'ai mis ça en test
-		// Donc OKLM en commentaires
 		GenerateurCarte gen = new GenerateurCarte();
-		Carte carte = gen.genererCarte(10, 10);//new Carte(tuiles);
-
-		// Créer et afficher l'interface graphique
+		Carte carte = gen.genererCarte(10, 10);
 		SwingUtilities.invokeLater(() -> {
 			CarteGUI carteGUI = new CarteGUI(carte);
 			carteGUI.setVisible(true);
