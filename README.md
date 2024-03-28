@@ -187,7 +187,7 @@ Dans un graphe orienté, l'adjacence peut être asymétrique, ce qui signifie qu
 
 ### Interface `AlgorithmeChemin`
 
-L'interface `fr.ecole3il.rodez2023.carte.chemin.algorithmes.AlgorithmeChemin<E>` définit un contrat pour les classes qui implémentent des algorithmes de recherche de chemin dans un graphe :
+L'interface `fr.ecole3il.rodez2023.carte.path.AlgorithmeChemin<E>` définit un contrat pour les classes qui implémentent des algorithmes de recherche de chemin dans un graphe :
 
 - `List<Noeud<E>> trouverChemin(Graphe<E> graphe, Noeud<E> depart, Noeud<E> arrivee)`: Cette méthode est responsable de trouver un chemin entre un nœud de départ et un nœud d'arrivée dans un graphe donné. Elle prend en paramètres le graphe dans lequel la recherche doit être effectuée, ainsi que les nœuds de départ et d'arrivée. Cette méthode renvoie une liste de nœuds représentant le chemin trouvé entre le nœud de départ et le nœud d'arrivée dans le graphe.
 
@@ -196,7 +196,7 @@ L'interface `fr.ecole3il.rodez2023.carte.chemin.algorithmes.AlgorithmeChemin<E>`
 
 ### Classe `AlgorithmeDijkstra`
 
-La classe `fr.ecole3il.rodez2023.carte.chemin.algorithmes.AlgorithmeDijkstra<E>` implémente l'interface `AlgorithmeChemin<E>` et fournit une implémentation de l'algorithme de Dijkstra pour trouver le chemin le plus court entre deux nœuds dans un graphe pondéré.
+La classe `fr.ecole3il.rodez2023.carte.path.AlgorithmeDijkstra<E>` implémente l'interface `AlgorithmeChemin<E>` et fournit une implémentation de l'algorithme de Dijkstra pour trouver le chemin le plus court entre deux nœuds dans un graphe pondéré.
 
 Voici les étapes de l'algorithme de Dijkstra pour trouver le chemin le plus court entre un nœud de départ et tous les autres nœuds dans un graphe pondéré :
 

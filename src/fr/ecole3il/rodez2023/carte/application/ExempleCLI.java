@@ -3,7 +3,6 @@ package fr.ecole3il.rodez2023.carte.application;
 import fr.ecole3il.rodez2023.carte.elements.Carte;
 import fr.ecole3il.rodez2023.carte.elements.Chemin;
 import fr.ecole3il.rodez2023.carte.manipulateurs.GenerateurCarte;
-import fr.ecole3il.rodez2023.carte.chemin.algorithmes.AlgorithmeDijkstra;
 
 public class ExempleCLI {
 

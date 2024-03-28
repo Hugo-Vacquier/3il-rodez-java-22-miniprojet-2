@@ -1,4 +1,4 @@
-package fr.ecole3il.rodez2023.carte.elements;
+package fr.ecole3il.rodez2023.carte.path.acces;
 
 import java.util.HashSet;
 import java.util.Set;
