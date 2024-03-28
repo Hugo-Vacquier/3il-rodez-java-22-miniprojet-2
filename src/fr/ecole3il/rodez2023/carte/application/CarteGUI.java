@@ -4,6 +4,7 @@ import fr.ecole3il.rodez2023.carte.elements.Carte;
 import fr.ecole3il.rodez2023.carte.elements.Case;
 import fr.ecole3il.rodez2023.carte.elements.Chemin;
 import fr.ecole3il.rodez2023.carte.elements.Tuile;
+import fr.ecole3il.rodez2023.carte.manipulateurs.GenerateurCarte;
 import fr.ecole3il.rodez2023.carte.path.algo.AlgorithmeChemin;
 import fr.ecole3il.rodez2023.carte.path.algo.AlgorithmeDijkstra;
 import fr.ecole3il.rodez2023.carte.path.algo.AlgorithmeAEtoile;

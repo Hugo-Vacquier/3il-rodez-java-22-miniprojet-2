@@ -2,15 +2,18 @@ package fr.ecole3il.rodez2023.carte.manipulateurs;
 
 import fr.ecole3il.rodez2023.carte.elements.Carte;
 import fr.ecole3il.rodez2023.carte.elements.Tuile;
+import java.util.Random;
 
 
 public class GenerateurCarte {
+    private static final Random random = new Random();
 
     public static Carte genererCarte(int largeur, int hauteur) {
+        Tuile[] values = Tuile.values();
         Tuile[][] tuiles = new Tuile[largeur][hauteur];
         for (int x = 0; x < largeur; x++) {
             for (int y = 0; y < hauteur; y++) {
-                tuiles[x][y] = Tuile.values()[random.nextInt(Tuile.values().length)];
+                tuiles[x][y] = values[random.nextInt(values.length)];
             }
         }
         return new Carte(tuiles);
