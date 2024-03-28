@@ -2,16 +2,15 @@ package fr.ecole3il.rodez2023.carte.path.algo;
 
 import fr.ecole3il.rodez2023.carte.path.acces.Graphe;
 import fr.ecole3il.rodez2023.carte.path.acces.Noeud;
+
 import java.util.*;
 
 public class AlgorithmeAEtoile<E> implements AlgorithmeChemin<E> {
 
     private final HeuristicFunction<E> heuristicFunction;
 
-    // Le constructeur exige une implémentation concrète de la fonction heuristique,
-    // ce qui permet une grande flexibilité pour adapter l'algorithme à différents contextes.
     public AlgorithmeAEtoile(HeuristicFunction<E> heuristicFunction) {
-        this.heuristicFunction = Objects.requireNonNull(heuristicFunction, "La fonction heuristique ne peut être null.");
+        this.heuristicFunction = Objects.requireNonNull(heuristicFunction);
     }
 
     @Override
@@ -23,13 +22,11 @@ public class AlgorithmeAEtoile<E> implements AlgorithmeChemin<E> {
         gScores.put(depart, 0.0);
         fScores.put(depart, heuristicFunction.estimate(depart, arrivee));
 
-        // Utilise une file de priorité pour gérer l'ensemble ouvert. Les noeuds sont triés par leur score F.
-        PriorityQueue<Noeud<E>> openSet = new PriorityQueue<>(Comparator.comparingDouble(fScores::get));
+        PriorityQueue<Noeud<E>> openSet = new PriorityQueue<>(Comparator.comparing(fScores::get));
         openSet.add(depart);
 
         while (!openSet.isEmpty()) {
             Noeud<E> current = openSet.poll();
-
             if (current.equals(arrivee)) {
                 return reconstructPath(cameFrom, arrivee);
             }
@@ -49,17 +46,16 @@ public class AlgorithmeAEtoile<E> implements AlgorithmeChemin<E> {
             }
         }
 
-        // Retourner une liste vide si aucun chemin n'a été trouvé.
         return new LinkedList<>();
     }
 
-    // Reconstitue le chemin trouvé en remontant depuis le noeud d'arrivée jusqu'au noeud de départ.
     private List<Noeud<E>> reconstructPath(Map<Noeud<E>, Noeud<E>> cameFrom, Noeud<E> current) {
-        LinkedList<Noeud<E>> totalPath = new LinkedList<>();
+        List<Noeud<E>> totalPath = new LinkedList<>();
         while (current != null) {
-            totalPath.addFirst(current); // Ajoute au début pour éviter l'appel à Collections.reverse()
+            totalPath.add(current);
             current = cameFrom.get(current);
         }
+        Collections.reverse(totalPath);
         return totalPath;
     }
 
