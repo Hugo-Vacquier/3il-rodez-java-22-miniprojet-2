@@ -1,42 +1,23 @@
 package fr.ecole3il.rodez2023.carte.elements;
 
-import java.util.HashMap;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedList;
 
 public class Graphe<E> {
-    private Map<Noeud<E>, List<Noeud<E>>> noeuds = new HashMap<>();
-    private Map<String, Double> coutsArete = new HashMap<>();
+    private Map<Noeud<E>, LinkedList<Noeud<E>>> noeuds = new LinkedHashMap<>();
 
     public void ajouterNoeud(Noeud<E> noeud) {
-        noeuds.putIfAbsent(noeud, new ArrayList<>());
+        noeuds.putIfAbsent(noeud, new LinkedList<>());
     }
 
     public void ajouterArete(Noeud<E> depart, Noeud<E> arrivee, double cout) {
-        ajouterNoeud(depart);
-        ajouterNoeud(arrivee);
-        noeuds.get(depart).add(arrivee);
-        // Pour un graphe non orienté, ajouter également l'arête inverse
-        // noeuds.get(arrivee).add(depart);
-        String cle = genererCleArete(depart, arrivee);
-        coutsArete.put(cle, cout);
-    }
-
-    public double getCoutArete(Noeud<E> depart, Noeud<E> arrivee) {
-        String cle = genererCleArete(depart, arrivee);
-        return coutsArete.getOrDefault(cle, Double.POSITIVE_INFINITY);
-    }
-
-    public List<Noeud<E>> getNoeuds() {
-        return new ArrayList<>(noeuds.keySet());
+        noeuds.get(depart).addFirst(arrivee); // Changement pour ajouter au début pour optimiser certaines opérations
+        // La gestion du coût nécessiterait une structure de données complémentaire ou un ajustement de la classe Noeud
     }
 
     public List<Noeud<E>> getVoisins(Noeud<E> noeud) {
-        return noeuds.getOrDefault(noeud, new ArrayList<>());
-    }
-
-    private String genererCleArete(Noeud<E> depart, Noeud<E> arrivee) {
-        return depart.getValeur().toString() + "->" + arrivee.getValeur().toString();
+        return new LinkedList<>(noeuds.getOrDefault(noeud, new LinkedList<>()));
     }
 }
