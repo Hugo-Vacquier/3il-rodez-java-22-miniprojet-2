@@ -6,12 +6,14 @@ import fr.ecole3il.rodez2023.carte.path.acces.Noeud;
 
 import java.util.*;
 
-public class AlgorithmeDijkstra<E> implements fr.ecole3il.rodez2023.carte.path.algo.AlgorithmeChemin<E> {
+public class AlgorithmeDijkstra<E> implements AlgorithmeChemin<E> {
     @Override
     public List<Noeud<E>> trouverChemin(Graphe<E> graphe, Noeud<E> depart, Noeud<E> arrivee) {
         Map<Noeud<E>, Noeud<E>> predecessors = new HashMap<>();
         Map<Noeud<E>, Double> distances = new HashMap<>();
-        PriorityQueue<Noeud<E>> queue = new PriorityQueue<>(Comparator.comparing(distances::get));
+        PriorityQueue<Noeud<E>> queue = new PriorityQueue<>(
+                Comparator.comparing(n -> distances.getOrDefault(n, Double.POSITIVE_INFINITY))
+        );
 
         distances.put(depart, 0.0);
         graphe.getNoeuds().forEach(n -> {

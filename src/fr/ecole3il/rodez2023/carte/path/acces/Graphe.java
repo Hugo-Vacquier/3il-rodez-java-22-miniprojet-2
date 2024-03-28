@@ -3,6 +3,7 @@ package fr.ecole3il.rodez2023.carte.path.acces;
 import java.util.*;
 
 public class Graphe<E> {
+
     private Map<Noeud<E>, LinkedList<Noeud<E>>> noeuds = new LinkedHashMap<>();
     private Map<Pair<Noeud<E>, Noeud<E>>, Double> coutsAretes = new HashMap<>();
 
@@ -24,7 +25,7 @@ public class Graphe<E> {
     }
 
     // Une classe auxiliaire pour représenter les paires de nœuds.
-    private static class Pair<U, V> {
+    private class Pair<U, V> {
         private final U first;
         private final V second;
 
@@ -43,9 +44,16 @@ public class Graphe<E> {
                     Objects.equals(second, pair.second);
         }
 
+        public Set<Noeud<E>> getNoeuds() {
+            return noeuds.keySet();
+        }
+
         @Override
         public int hashCode() {
             return Objects.hash(first, second);
         }
+    }
+    public Set<Noeud<E>> getNoeuds() {
+        return noeuds.keySet();
     }
 }
