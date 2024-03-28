@@ -9,7 +9,7 @@ public class AlgorithmeAEtoile<E> implements AlgorithmeChemin<E> {
 
     private final HeuristicFunction<E> heuristicFunction;
 
-    public AlgorithmeAEtoile(HeuristicFunction<E> heuristicFunction) {
+    public AlgorithmeAEtoile() {
         this.heuristicFunction = heuristicFunction;
     }
 
