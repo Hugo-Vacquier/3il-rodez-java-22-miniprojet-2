@@ -24,4 +24,11 @@ public class Carte {
     public int getHauteur() {
         return tuiles[0].length;
     }
+
+    public Case getCaseAt(int x, int y) {
+        if (x < 0 || x >= getLargeur() || y < 0 || y >= getHauteur()) {
+            throw new IndexOutOfBoundsException("Coordonnées hors de la carte.");
+        }
+        return new Case(getTuile(x, y), x, y);
+    }
 }

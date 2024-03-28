@@ -3,7 +3,6 @@ package fr.ecole3il.rodez2023.carte.manipulateurs;
 import fr.ecole3il.rodez2023.carte.elements.Carte;
 import fr.ecole3il.rodez2023.carte.elements.Tuile;
 
-import java.util.concurrent.ThreadLocalRandom;
 
 public class GenerateurCarte {
 
@@ -11,8 +10,7 @@ public class GenerateurCarte {
         Tuile[][] tuiles = new Tuile[largeur][hauteur];
         for (int x = 0; x < largeur; x++) {
             for (int y = 0; y < hauteur; y++) {
-                int index = ThreadLocalRandom.current().nextInt(Tuile.values().length);
-                tuiles[x][y] = Tuile.values()[index];
+                tuiles[x][y] = Tuile.values()[random.nextInt(Tuile.values().length)];
             }
         }
         return new Carte(tuiles);

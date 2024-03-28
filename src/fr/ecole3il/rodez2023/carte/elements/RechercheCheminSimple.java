@@ -1,6 +1,6 @@
 package fr.ecole3il.rodez2023.carte.elements;
 
-import fr.ecole3il.rodez2023.carte.path.AlgorithmeChemin;
+import fr.ecole3il.rodez2023.carte.path.algo.AlgorithmeChemin;
 import fr.ecole3il.rodez2023.carte.path.acces.Graphe;
 import fr.ecole3il.rodez2023.carte.path.acces.Noeud;
 
